@@ -157,7 +157,6 @@ angular.module('cgeMapApp')
             // Add the markers layer
             $scope.map.addLayer($scope.markers);
             // Center the map
-            //console.log(coordinates);
             $scope.map.setView(coordinates,3);        
           }
         });
