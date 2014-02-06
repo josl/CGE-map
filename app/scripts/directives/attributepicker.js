@@ -13,16 +13,17 @@ angular.module('cgeMapApp')
           if (newVal != oldVal){
             scope.elements = newVal[1].all();
             scope.dimension = newVal[0];
-            
+            scope.selected = "Select...";
             // Listener to event: "click on list element"
             scope.filterDimension = function(data){
               // Filter selected dimension
               scope.dimension.filter(data.key);
-              // Update all the other charts
-              dc.renderAll();
+              // Redraw all the other charts
+              dc.redrawAll();
               scope.$parent.filter.data = [data.key]; 
               scope.$parent.filter.type = scope.id.split("-")[0]; 
-              scope.$emit("updateMap");              
+              scope.$emit("updateMap");   
+              scope.selected = data.key;                         
             }
             
             // Listener to event: "click on reset"
@@ -31,7 +32,8 @@ angular.module('cgeMapApp')
               dc.redrawAll();
               scope.$parent.filter.data = []; 
               scope.$parent.filter.type = scope.id.split("-")[0]; 
-              scope.$emit("updateMap");              
+              scope.$emit("updateMap"); 
+              scope.selected = "Select...";             
             }
           } 
         });
