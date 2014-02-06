@@ -1,0 +1,24 @@
+<!-- Template for selectable picker -->
+
+<div chart-id="{{chart-id}}"> 
+    <div id="{{id}}" class="btn-group col-md-2 col-md-offset-2">
+        <strong>{{name}} </strong>
+        <div class="btn-group col-md-2 col-md-offset-2"></div>
+            <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+                Select...<span class="caret"></span>
+            </button>            
+            <ul class="dropdown-menu">
+              <li ng-repeat = "element in elements">
+                <span ng-click = "dimension.filter(element.key);dc.filterAll();">
+                  {{element.key}}
+                </span>
+              </li>
+            </ul>
+            <a class="reset" 
+                href="javascript:{{dimension}}.filterAll();dc.redrawAll();restore_map();" 
+                style="display: inline;">
+                reset
+            </a>
+            <div class="clearfix"></div>
+    </div>
+</div>

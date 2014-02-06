@@ -1,0 +1,66 @@
+<div class="container-full">
+
+    <div class="row" id="map_container">
+        
+        <div class="col-lg-12">
+            <div class="row">
+                <!-- Map -->
+                <clustered-map lat="55.4" long="12.34" class="col-lg-10"></clustered-map>
+                
+                <!-- Side Visualizations -->
+                <div class="col-lg-2">
+                    <div class="row">
+                    
+                       <!-- Country Pie --> 
+                       <div id="country-pie">
+                            <attribute-picker id="countries-pick" data="countries" name="Countries">
+                            </attribute-picker>
+                            <pie-chart id="countries-pie" data="countries"></pie-chart>
+                        </div>
+                        
+                        <!-- Pathogenic distribution -->
+                        <div id="path-dist">
+                          <row-chart id="path-chart" name="Pathogenic" data="pathogenic"></row-chart>
+                        </div>
+                        
+                        <!-- Source picker -->
+                        <div id="source-chart">
+                            <attribute-picker id="sources-pick"  data="sources" name="Source">
+                            </attribute-picker>
+                        </div>
+                        
+                        <!-- Genus picker -->
+                        <div id="genus-chart">
+                            <attribute-picker id="genus-pick" data="genus" name="Genus">
+                            </attribute-picker>
+                        </div>
+                        
+                        <!-- Species picker -->
+                        <div id="species-chart">
+                            <attribute-picker id="species-pick" data="species" name="Species">
+                            </attribute-picker>
+                        </div>
+
+                    </div><!-- /row --> 
+                </div><!-- /col --> 
+            </div><!-- /row -->     
+        </div>                       
+    </div> <!-- /map_container -->
+
+    <!-- Pathgenic distribution -->
+<!--
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="path-line">
+              <line-chart id="patho-line" data="pathogenity" name="Pathogenic"></line-chart>
+            </div>        
+        </div> 
+    </div>
+-->
+
+  <!-- Time Line -->
+  <div class="row">
+    <time-line id="time-line-chart" data="timeline" name="Time Line"></time-line>                   
+  </div>   <!-- /Time Line -->        
+     
+</div> <!-- /container-full" -->
