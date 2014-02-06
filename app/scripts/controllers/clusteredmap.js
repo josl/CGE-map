@@ -131,7 +131,6 @@ angular.module('cgeMapApp')
         // Watch if any filter applies to update the markers on the map
         $scope.$on("updateMap",function (newVal, oldVal){
           if (newVal != oldVal){
-            console.log(newVal);
             // Remove the old markers
             $scope.markers.clearLayers();          
             var coordinates = [55.4, 12.34];          

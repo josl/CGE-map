@@ -9,14 +9,12 @@
             </button>            
             <ul class="dropdown-menu">
               <li ng-repeat = "element in elements">
-                <span ng-click = "dimension.filter(element.key);dc.filterAll();">
+                <span ng-click = "filterDimension(element)">
                   {{element.key}}
                 </span>
               </li>
             </ul>
-            <a class="reset" 
-                href="javascript:{{dimension}}.filterAll();dc.redrawAll();restore_map();" 
-                style="display: inline;">
+            <a class="reset" ng-click="resetDimension()" style="display: inline;">
                 reset
             </a>
             <div class="clearfix"></div>
