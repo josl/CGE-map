@@ -11,6 +11,13 @@ angular.module('cgeMapApp')
             $scope.markers = new L.MarkerClusterGroup();
             $scope.isolates = [];
             $scope.filter = {data:[], type:''};
+            $scope.isolate_group = '';
+            $scope.groupingBy = function(filter){
+              $scope.isolate_group = filter;
+            };
+            
+            // Create a list of coordinates/country
+            // TODO: ...
             
             // Service to create the markers
             var markers = Markers.createAll(answer);

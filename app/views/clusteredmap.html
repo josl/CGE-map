@@ -4,7 +4,22 @@
         
         <div class="col-lg-12">
             <div class="row">
-                <!-- Map -->
+                
+                <!-- Single button -->
+                <div class="col-lg-2 col-md-offset-1" class="btn-group">
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    Group isolates <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a ng-click="groupingBy('id')">by ID</a></li>
+                    <li><a ng-click="groupingBy('city')">by City</a></li>
+                    <li><a ng-click="groupingBy('country')">by Country</a></li>
+                  </ul>
+                </div>  
+            </div>
+                       
+            <div class="row"> 
+                <!-- Map -->             
                 <clustered-map lat="55.4" long="12.34" class="col-lg-10"></clustered-map>
                 
                 <!-- Side Visualizations -->
