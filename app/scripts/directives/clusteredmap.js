@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('cgeMapApp')
-  .directive('clusteredMap', function () {
+  .directive('clusteredMap', ['Groupisolates', function (Groupisolates) {
     return {
       template: '<div></div>',
       restrict: 'E',
@@ -26,8 +26,39 @@ angular.module('cgeMapApp')
         
         // Functions for d3 transformation. Visible to both watch functions
         var transform = d3.geo.transform({point: projectPoint}),
-                path = d3.geo.path().projection(transform).pointRadius(10); 
-              
+                path = d3.geo.path().projection(transform)
+                              .pointRadius(function(d){
+                                  return radius(d.properties.data.size);
+                              });
+
+        var radius = d3.scale.linear()
+                      .domain([1, 1]) // updated later, when we know the isolates
+                      .range([10, 50]);   
+        
+        var padding = 10; // Extra padding for circle radius
+                          // visible for both watch functions
+        var collection = {"type":"FeatureCollection","features":[]};
+        
+        // Reposition the SVG to cover the features.
+        var reset = function () {
+          
+          var bounds = path.bounds(collection),
+              topLeft = bounds[0],
+              bottomRight = bounds[1],
+              topLeft = [topLeft[0] - padding, topLeft[1] - padding],
+              bottomRight = [bottomRight[0] + padding, bottomRight[1] + padding];
+          
+          d3.select("#svg_features").attr("width", bottomRight[0] - topLeft[0])
+             .attr("height", bottomRight[1] - topLeft[1])
+             .style("left", topLeft[0] + "px")
+             .style("top", topLeft[1] + "px");
+    
+          d3.select(".leaflet-zoom-hide").attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");
+          
+          var feature = d3.select(".leaflet-zoom-hide").selectAll(".circle_path");
+          
+          feature.attr("d", path);
+        }                   
               
         // WATCH FUNCTIONS
               
@@ -38,40 +69,15 @@ angular.module('cgeMapApp')
             //map.addLayer(scope.markers);
 
             // Create SVG elements
-            var svg = d3.select(map.getPanes().overlayPane).append("svg").attr("id"," "),
+            var svg = d3.select(map.getPanes().overlayPane).append("svg").attr("id","svg_features"),
                 g = svg.append("g").attr("class", "leaflet-zoom-hide");
                       
-            var collection = {"type":"FeatureCollection","features":newVal},
-                bounds = path.bounds(collection);
+            collection.features = newVal;
           
             var feature = g.selectAll(".circle_path")
                 .data(collection.features)
               .enter().append("path").attr("class","circle_path");
                                    
-            // Reposition the SVG to cover the features.
-            var reset = function () {
-              
-              var bounds = path.bounds(collection),
-                  padding = 100, // Extra padding for circle radius
-                  topLeft = bounds[0],
-                  bottomRight = bounds[1],
-                  topLeft = [topLeft[0] - padding, topLeft[1] - padding],
-                  bottomRight = [bottomRight[0] + padding, bottomRight[1] + padding];
-              
-              svg.attr("width", bottomRight[0] - topLeft[0])
-                 .attr("height", bottomRight[1] - topLeft[1])
-                 .style("left", topLeft[0] + "px")
-                 .style("top", topLeft[1] + "px");
-        
-              g.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");
-          
-              feature.attr("d", path)
-                      .append("title")
-                      .text(function(d){
-                        return d.properties.data.City;
-                      });
-            }
-          
             //map.on("viewreset", reset);
             map.on("moveend", reset);
             map.on("zoomend", reset);
@@ -86,31 +92,33 @@ angular.module('cgeMapApp')
         scope.$watch('isolate_group', function (newVal, oldVal) {
           if (newVal !== oldVal){ 
             // Group isolates according to the filter
+            var data, max, min;
             if (newVal == 'id'){
-              var data = scope.isolates;
+              data = scope.isolates;
+              max = 1; min = 1;
             }else if (newVal == 'city'){
-            
-              console.log(scope.isolates);
-              
+              var answer = Groupisolates.create(scope.isolates, 'city');
+              data = answer[0]; max = answer[1]; min = answer[2];
             }else if (newVal == 'country'){
-              console.log(scope.isolates);
+              answer = Groupisolates.create(scope.isolates, 'country');
+              data = answer[0]; max = answer[1]; min = answer[2];
             }
-            var collection = {"type":"FeatureCollection","features":scope.isolates};
+            radius.domain([min, max]);
+            padding = radius(max);
+            collection.features = data;    
+            // Remove everything        
+            d3.selectAll(".circle_path").remove();
             
-            var feature = d3.selectAll(".circle_path")
-                .data(collection.features);
-            
-            // Update
-            feature.attr("d", path)
-                    .append("title")
-                    .text(function(d){
-                      return d.properties.data.City;
-                    });            
+            var feature = d3.select(".leaflet-zoom-hide").selectAll(".circle_path")
+                            .data(collection.features);
             // Enter
-            
-            // Exit                        
+            feature.enter().append("path")
+                      .attr("class","circle_path");
+            // Reposition new circles
+            reset();
+                                
           }
         });                                  
       }              
   }
-});
+}]);

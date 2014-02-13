@@ -2,7 +2,7 @@
 
 angular.module('cgeMapApp')
     .controller('ClusteredmapCtrl', 
-      ['$scope', 'Isolates', 'Markers',function ($scope, Isolates, Markers) {
+      ['$scope', 'Isolates', 'Markers', 'Citygroup', function ($scope, Isolates, Markers, Citygroup) {
 
         // Initial load of the isolates data            
         $scope.getIsolates = Isolates.getData().success(function(answer){   
@@ -11,7 +11,7 @@ angular.module('cgeMapApp')
             $scope.markers = new L.MarkerClusterGroup();
             $scope.isolates = [];
             $scope.filter = {data:[], type:''};
-            $scope.isolate_group = '';
+            $scope.isolate_group;
             $scope.groupingBy = function(filter){
               $scope.isolate_group = filter;
             };
@@ -130,16 +130,19 @@ angular.module('cgeMapApp')
             // Finally we update the scope variable isolates
             $scope.isolates = markers.isolates;
             
-            console.log($scope.isolates);
-              
-                
+            Citygroup.create($scope.isolates);
+  
         }, function() {
             return 'error';
         });
         
         // Watch if any filter applies to update the markers on the map
+        // and the SVG circles
         $scope.$on("updateMap",function (newVal, oldVal){
           if (newVal != oldVal){
+            
+              // Markers
+            
             // Remove the old markers
             $scope.markers.clearLayers();          
             var coordinates = [55.4, 12.34];          
@@ -166,7 +169,10 @@ angular.module('cgeMapApp')
             // Add the markers layer
             $scope.map.addLayer($scope.markers);
             // Center the map
-            $scope.map.setView(coordinates,3);        
+            $scope.map.setView(coordinates,3); 
+            
+              // SVG Circles
+              // TODO: ...       
           }
         });
 
