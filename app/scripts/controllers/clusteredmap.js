@@ -122,6 +122,8 @@ angular.module('cgeMapApp')
                         
             // Finally we update the scope variable isolates
             $scope.isolates = markers.isolates;
+            
+            console.log($scope.isolates);
               
                 
         }, function() {
@@ -148,7 +150,7 @@ angular.module('cgeMapApp')
                   } 
                 }
               }          
-              var markerList = Markers.createMarkers(data); // return markerList
+              var markerList = Markers.createMarkers(data); // return just  markerList
               $scope.markers.addLayers(markerList);           
             }else{
               // Retrieve the old markers

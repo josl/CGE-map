@@ -94,6 +94,21 @@ angular.module('cgeMapApp')
             
             // Hide the y axis in 
             d3.select("#time-line-chart").selectAll("g.y").style("display","none");
+            
+            // Listener function to event: "reset timeline dimension"
+            scope.resetDimension = function(dimension){
+              console.log("migue");
+              console.log(dimension);
+/*
+              scope.dimension.filterAll();
+              dc.redrawAll();
+              scope.$parent.filter.data = []; 
+              scope.$parent.filter.type = scope.id.split("-")[0]; 
+              scope.$emit("updateMap"); 
+              scope.selected = "Select...";   
+*/          
+            }            
+            
           } 
         });
       }

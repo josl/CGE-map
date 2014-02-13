@@ -8,9 +8,6 @@ clustered-map {
   height: 500px;
 }
 
-svg {
-  position: relative;
-}
 
 .marker-cluster-large,
 .marker-cluster-medium,
@@ -42,5 +39,23 @@ svg {
 .marker_legend{
     height: 18;
     width: 18;  
+}
+
+/* SVG CIRCLES */
+
+svg {
+  position: relative;
+}
+
+.circle_path {
+  fill: #000;
+  fill-opacity: .2;
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.circle_path:hover {
+  fill: brown;
+  fill-opacity: .7;
 }
 

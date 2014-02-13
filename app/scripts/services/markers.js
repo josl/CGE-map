@@ -25,8 +25,9 @@ angular.module('cgeMapApp')
         iconData.iconUrl = markers_src[2];
       var myIcon = L.icon(iconData);
       var marker = L.marker([isolate.properties.data.Latitude, 
-                             isolate.properties.data.Longitude],
-                             {icon: myIcon});  
+                             isolate.properties.data.Longitude]
+                             //,{icon: myIcon}
+                             );  
       marker.bindPopup("<b>Country:</b> " + isolate.properties.data.Country + "<br>" +
                         "<b>City:</b> " + isolate.properties.data.City + "<br>" +
                         "<b>Pathogenic:</b> "+ isolate.properties.data.Pathogenic); 
@@ -54,13 +55,13 @@ angular.module('cgeMapApp')
           if (states.indexOf(d.Country) != -1){
             d.Country = "US";
           }
-          // Create isolate ready for the map  
+          // Create isolate ready for the map in GEOJSON format 
           var isolate = {"type":"Feature","id":i.toString(),
             "properties":{
               "data":d
             },"geometry":{
                 "type":"Point",
-                "coordinates":[parseInt(d.Latitude),parseInt(d.Longitude)]
+                "coordinates":[parseFloat(d.Longitude),parseFloat(d.Latitude)]
               }
             }; 
           _create_markers(isolate, markerList, markers);
