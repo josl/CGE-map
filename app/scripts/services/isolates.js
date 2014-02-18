@@ -6,6 +6,7 @@ angular.module('cgeMapApp')
     // ...
 
     var meaningOfLife = 42;
+    
 
     // Public API here
     return {

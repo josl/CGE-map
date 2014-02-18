@@ -2,20 +2,32 @@
 
 angular.module('cgeMapApp')
     .controller('ClusteredmapCtrl', 
-      ['$scope', 'Isolates', 'Markers', 'Citygroup', function ($scope, Isolates, Markers, Citygroup) {
+      ['$scope', 'Isolates', 'Markers', 'Groupisolates', function ($scope, Isolates, Markers, Groupisolates) {
 
         // Initial load of the isolates data            
         $scope.getIsolates = Isolates.getData().success(function(answer){   
 
-            // Preprocess Influenza Data
+            // Scope variables
             $scope.markers = new L.MarkerClusterGroup();
             $scope.isolates = [];
             $scope.filter = {data:[], type:''};
-            $scope.isolate_group;
+            $scope.isolate_group = 'id';
             $scope.groupingBy = function(filter){
               $scope.isolate_group = filter;
             };
-            
+            // Hide/show clusters/circles
+            $scope.map_layer = function (layer) {
+              if (layer == 'circles'){
+                $(".leaflet-marker-pane").css({"display" : "none"});
+                $(".leaflet-shadow-pane").css({"display" : "none"});
+                $("#svg_features").css({"display" : "block"});
+              }else if (layer == 'clusters'){
+                 $(".leaflet-marker-pane").css({"display" : "block"});
+                 $(".leaflet-shadow-pane").css({"display" : "block"});
+                 $("#svg_features").css({"display" : "none"});
+              }
+            }
+
             // Create a list of coordinates/country
             // TODO: ...
             
@@ -129,51 +141,10 @@ angular.module('cgeMapApp')
                         
             // Finally we update the scope variable isolates
             $scope.isolates = markers.isolates;
-            
-            Citygroup.create($scope.isolates);
   
         }, function() {
             return 'error';
         });
         
-        // Watch if any filter applies to update the markers on the map
-        // and the SVG circles
-        $scope.$on("updateMap",function (newVal, oldVal){
-          if (newVal != oldVal){
-            
-              // Markers
-            
-            // Remove the old markers
-            $scope.markers.clearLayers();          
-            var coordinates = [55.4, 12.34];          
-            var data = $scope.countries[0].top(Infinity);
-
-            if (data.length != $scope.isolates.length){ 
-              if ($scope.filter.type == "country"){
-                // Get the coordinates to focus the map on the last country
-                var country = $scope.filter.data[$scope.filter.data.length-1];
-                for (var i=0; i< data.length; i++){
-                  if (data[i].properties.data.Country == country){
-                    coordinates = [data[i].properties.data.Latitude, 
-                                    data[i].properties.data.Longitude]; 
-                    break;
-                  } 
-                }
-              }          
-              var markerList = Markers.createMarkers(data); // return just  markerList
-              $scope.markers.addLayers(markerList);           
-            }else{
-              // Retrieve the old markers
-              $scope.markers.addLayers($scope.markersList);
-            }
-            // Add the markers layer
-            $scope.map.addLayer($scope.markers);
-            // Center the map
-            $scope.map.setView(coordinates,3); 
-            
-              // SVG Circles
-              // TODO: ...       
-          }
-        });
 
     }]);

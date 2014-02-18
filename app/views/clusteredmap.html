@@ -4,18 +4,47 @@
         
         <div class="col-lg-12">
             <div class="row">
-                
-                <!-- Single button -->
-                <div class="col-lg-2 col-md-offset-1" class="btn-group">
-                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    Group isolates <span class="caret"></span>
+                <!-- Show/Hide clusters -->
+                <div class="col-lg-2">  
+                  <span class="input-group-addon">
+                    <input type="radio" name="optionsRadios" ng-click="map_layer('clusters')" checked> Show clusters
+                  </span>    
+                  <span class="input-group-addon">
+                    <input type="radio" name="optionsRadios" ng-click="map_layer('circles')"> Hide clusters
+                  </span>                                               
+                </div>   
+
+                <!-- Group by button -->
+                <div id ="grouping_buton" class="col-lg-2 col-md-offset-1" class="btn-group">
+                  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                    Group isolates by: <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu">
                     <li><a ng-click="groupingBy('id')">by ID</a></li>
                     <li><a ng-click="groupingBy('city')">by City</a></li>
                     <li><a ng-click="groupingBy('country')">by Country</a></li>
                   </ul>
-                </div>  
+                </div>                  
+                 
+                <div class="col-lg-4">
+                  <!-- Source picker -->
+                  <div id="source-chart">
+                      <attribute-picker id="source-pick"  data="sources" name="Source">
+                      </attribute-picker>
+                  </div>
+                  
+                  <!-- Genus picker -->
+                  <div id="genus-chart">
+                      <attribute-picker id="genus-pick" data="genus" name="Genus">
+                      </attribute-picker>
+                  </div>
+                  
+                  <!-- Species picker -->
+                  <div id="species-chart">
+                      <attribute-picker id="specie-pick" data="species" name="Species">
+                      </attribute-picker>
+                  </div>
+                </div>                 
             </div>
                        
             <div class="row"> 
@@ -38,28 +67,10 @@
                           <row-chart id="path-chart" name="Pathogenic" data="pathogenic"></row-chart>
                         </div>
                         
-                        <!-- Source picker -->
-                        <div id="source-chart">
-                            <attribute-picker id="source-pick"  data="sources" name="Source">
-                            </attribute-picker>
-                        </div>
-                        
-                        <!-- Genus picker -->
-                        <div id="genus-chart">
-                            <attribute-picker id="genus-pick" data="genus" name="Genus">
-                            </attribute-picker>
-                        </div>
-                        
-                        <!-- Species picker -->
-                        <div id="species-chart">
-                            <attribute-picker id="specie-pick" data="species" name="Species">
-                            </attribute-picker>
-                        </div>
-
                     </div><!-- /row --> 
                 </div><!-- /col --> 
             </div><!-- /row -->     
-        </div>                       
+        </div><!-- /col -->                    
     </div> <!-- /map_container -->
 
     <!-- Pathgenic distribution -->

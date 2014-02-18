@@ -31,7 +31,7 @@ angular.module('cgeMapApp')
                 .dimension(newVal[2])
                 .group(newVal[2].group())
                 //.centerBar(true)
-                .gap(5)
+                .gap(14)
                 .x(d3.time.scale().domain([newVal[0], newVal[1]]))
                 .round(d3.time.day.round)
                 .xUnits(d3.time.days)
@@ -97,18 +97,12 @@ angular.module('cgeMapApp')
             
             // Listener function to event: "reset timeline dimension"
             scope.resetDimension = function(dimension){
-              console.log("migue");
-              console.log(dimension);
-/*
-              scope.dimension.filterAll();
+              dimension.filterAll();
               dc.redrawAll();
               scope.$parent.filter.data = []; 
               scope.$parent.filter.type = scope.id.split("-")[0]; 
               scope.$emit("updateMap"); 
-              scope.selected = "Select...";   
-*/          
-            }            
-            
+            }                        
           } 
         });
       }

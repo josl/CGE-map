@@ -55,8 +55,10 @@ angular.module('cgeMapApp')
           if (states.indexOf(d.Country) != -1){
             d.Country = "US";
           }
+          if (d.Country == "Helsinki")
+            d.Country = "Finland";
           // At the begining the grouping is by id, meaning just one isolate
-          d.size = 1;
+          d.Size = 1;
           // Create isolate ready for the map in GEOJSON format 
           var isolate = {"type":"Feature","id":i.toString(),
             "properties":{
