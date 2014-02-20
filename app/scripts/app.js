@@ -14,7 +14,7 @@ angular.module('cgeMapApp', [
         controller: 'MainCtrl'
       })
       .when('/clusteredMap', {
-        templateUrl: 'views/clusteredmap.html',
+        templateUrl: 'views/clusteredmap_2.html',
         controller: 'ClusteredmapCtrl'
       })
       .otherwise({

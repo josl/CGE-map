@@ -64,7 +64,7 @@ angular.module('cgeMapApp')
             $scope.countries = [countries, countries.group()];
               // Sources
             var sources = ndx.dimension(function (d) {
-                return d.properties.data.Sources;
+                return d.properties.data.Source;
             });
             $scope.sources = [sources, sources.group()];
               // Genus

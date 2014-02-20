@@ -25,7 +25,7 @@ angular.module('cgeMapApp')
             var timeLineMonth = dc.barChart("#time-line-month"); 
                         
             // TIMELINE (General)
-            timeLine.width(680)
+            timeLine.width(650)
                 .height(50)
                 .margins({top: 0, right: 20, bottom: 20, left: 10})
                 .dimension(newVal[2])
@@ -46,7 +46,7 @@ angular.module('cgeMapApp')
                 });
         
             //  ------> TIMELINE DAY
-            timeLineDay.width(200)
+            timeLineDay.width(150)
                 .height(50)
                 .margins({top: 0, right: 20, bottom: 20, left: 10})
                 .dimension(newVal[4])
@@ -60,7 +60,6 @@ angular.module('cgeMapApp')
                 .on("filtered", function(chart, filter){
                     // Filter the points in the map with the filter 
                     if(chart.filter()) {
-                        console.log(chart.filter());
                         var dates = chart.filter(); 
                         scope.$parent.filter.data = dates;
                         scope.$parent.filter.type = 'date_day';
@@ -69,7 +68,7 @@ angular.module('cgeMapApp')
                 });
         
             //  ------> TIMELINE Month
-            timeLineMonth.width(200)
+            timeLineMonth.width(150)
                 .height(50)
                 .margins({top: 0, right: 20, bottom: 20, left: 10})
                 .dimension(newVal[6])

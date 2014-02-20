@@ -4,7 +4,7 @@ angular.module('cgeMapApp')
   .directive('clusteredMap', ['Groupisolates', 'Markers', function (Groupisolates, Markers) {
     return {
       //template: '<div></div>',
-      restrict: 'E',
+      restrict: 'A',
       //scope: true, //Creates a new scope but prototypically inherits from the parent scope.
       controller: function ($scope, $element, $attrs) {
         
@@ -21,6 +21,7 @@ angular.module('cgeMapApp')
           
         // Create Map
         var url = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+        console.log(element[0]);
         scope.map = new L.Map(element[0],{
                         center: [parseFloat(attrs.lat), parseFloat(attrs.long)], 
                         zoom: 3
@@ -140,7 +141,7 @@ angular.module('cgeMapApp')
             scope.update_bb(); // Reposition new circles
             
             // First time
-            //scope.svg.style("display", "none");
+            scope.svg.style("display", "none");
             $("#svg_features").css({"display" : "none"});            
           }
         });

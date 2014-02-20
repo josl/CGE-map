@@ -40,6 +40,7 @@ angular.module('cgeMapApp')
     this.createAll = function(isolates){
 
       var influenza_date = d3.time.format("%Y/%m/%d");
+      var DT104_date = d3.time.format("%d-%m-%y");
       var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District-of-Columbia', 'Florida', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New-Hampshire', 'New-Jersey', 'New-Mexico', 'New-York', 'North-Carolina', 'North-Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode-Island', 'South-Carolina', 'South-Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West-Virginia', 'Wisconsin', 'Wyoming'];      
       var year_to_star = 1000;
 
@@ -48,27 +49,39 @@ angular.module('cgeMapApp')
       var markerList = [];
       isolates.forEach(function(d, i){
         if ((d.Date != null) && (d.Latitude != null && d.Longitude != null)){
+          
           d.Date = influenza_date.parse(d.Date);
-          d.month = d3.time.month(d.Date);
-          if (d.Country == "New")
-            d.Country = "New Zealand";      
-          if (states.indexOf(d.Country) != -1){
-            d.Country = "US";
+/*
+          console.log(d.Date);
+          var aux_date = d.Date.split(".")
+          if (parseInt(aux_date[1]) > parseInt(aux_date[0])){
+              d.Date = new Date(aux_date[2],aux_date[1]-1,aux_date[0])
+          }else{
+             d.Date = DT104_date.parse(d.Date);
+          }  
+*/
+          if (d.Date != null){          
+            d.month = d3.time.month(d.Date);
+            if (d.Country == "New")
+              d.Country = "New Zealand";      
+            if (states.indexOf(d.Country) != -1){
+              d.Country = "US";
+            }
+            if (d.Country == "Helsinki")
+              d.Country = "Finland";
+            // At the begining the grouping is by id, meaning just one isolate
+            d.Size = 1;
+            // Create isolate ready for the map in GEOJSON format 
+            var isolate = {"type":"Feature","id":i.toString(),
+              "properties":{
+                "data":d
+              },"geometry":{
+                  "type":"Point",
+                  "coordinates":[parseFloat(d.Longitude),parseFloat(d.Latitude)]
+                }
+              }; 
+            _create_markers(isolate, markerList, markers);
           }
-          if (d.Country == "Helsinki")
-            d.Country = "Finland";
-          // At the begining the grouping is by id, meaning just one isolate
-          d.Size = 1;
-          // Create isolate ready for the map in GEOJSON format 
-          var isolate = {"type":"Feature","id":i.toString(),
-            "properties":{
-              "data":d
-            },"geometry":{
-                "type":"Point",
-                "coordinates":[parseFloat(d.Longitude),parseFloat(d.Latitude)]
-              }
-            }; 
-          _create_markers(isolate, markerList, markers);
         }
       });
       return {isolates: markers, markerList: markerList};

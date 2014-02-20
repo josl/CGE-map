@@ -4,7 +4,7 @@ angular.module('cgeMapApp')
   .directive('attributePicker', function () {
     return {
       templateUrl: 'templates/attibutePickerTemplate.html',
-      restrict: 'E',
+      restrict: 'A',
       transclude: true,
       scope: { id:'@id', name:'@name', data:'=data' },
       //scope: true,
@@ -13,7 +13,7 @@ angular.module('cgeMapApp')
           if (newVal != oldVal){
             scope.elements = newVal[1].all();
             scope.dimension = newVal[0];
-            scope.selected = "Select...";
+            scope.selected = "...";
             // Listener to event: "click on list element"
             scope.filterDimension = function(data){
               // Filter selected dimension
@@ -23,7 +23,7 @@ angular.module('cgeMapApp')
               scope.$parent.filter.data = [data.key]; 
               scope.$parent.filter.type = scope.id.split("-")[0]; 
               scope.$emit("updateMap");   
-              scope.selected = data.key;                         
+              scope.selected = data.key;      
             }
             
             // Listener to event: "click on reset"
@@ -31,9 +31,10 @@ angular.module('cgeMapApp')
               scope.dimension.filterAll();
               dc.redrawAll();
               scope.$parent.filter.data = []; 
-              scope.$parent.filter.type = scope.id.split("-")[0]; 
+              scope.$parent.filter.type = scope.id.split("-")[0];
+              
               scope.$emit("updateMap"); 
-              scope.selected = "Select...";             
+              scope.selected = "...";             
             }
           } 
         });

@@ -17,12 +17,9 @@ angular.module('cgeMapApp')
                 cache: true,
                 headers: 'application/json'
             }).
-/*
             success(function(data){
-                //console.log(data);
-                return data;
+                console.log(data);
             }).
-*/
             error(function (data, status) {
                 if (status === 404) {
                     console.log('That repository does not exist');
