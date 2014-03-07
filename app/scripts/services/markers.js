@@ -49,7 +49,6 @@ angular.module('cgeMapApp')
       var markerList = [];
       isolates.forEach(function(d, i){
         if ((d.Date != null) && (d.Latitude != null && d.Longitude != null)){
-          
           d.Date = influenza_date.parse(d.Date);
 /*
           console.log(d.Date);
@@ -66,9 +65,12 @@ angular.module('cgeMapApp')
               d.Country = "New Zealand";      
             if (states.indexOf(d.Country) != -1){
               d.Country = "US";
+              d.Pathogenic = "Unknown";
             }
-            if (d.Country == "Helsinki")
+            if (d.Country == "Helsinki"){
               d.Country = "Finland";
+              d.Pathogenic = "No";
+            }
             // At the begining the grouping is by id, meaning just one isolate
             d.Size = 1;
             // Create isolate ready for the map in GEOJSON format 
@@ -77,7 +79,7 @@ angular.module('cgeMapApp')
                 "data":d
               },"geometry":{
                   "type":"Point",
-                  "coordinates":[parseFloat(d.Longitude),parseFloat(d.Latitude)]
+                  "coordinates":[parseFloat(d.Longitude), parseFloat(d.Latitude)]
                 }
               }; 
             _create_markers(isolate, markerList, markers);

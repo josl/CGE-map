@@ -70,6 +70,7 @@ angular.module('cgeMapApp')
         scope.map.on("viewreset", scope.reset);
 
         scope.create_circles = function (data, criteria) {
+          console.log(data);
           // Feature in scope so we don't select every time
           scope.feature = scope.g.selectAll(".circle_path")
                           .data(data, function(d){

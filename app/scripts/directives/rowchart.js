@@ -23,7 +23,16 @@ angular.module('cgeMapApp')
               .label(function (d) { return d.key; })
               .title(function (d) { return d.value;})
               .elasticX(true)
-              .xAxis().ticks(10);
+              .on("filtered", function(chart, filter){
+                // Filter the points in the map with the filter 
+                if(chart.filters()) {
+                  //var countries = chart.filters();
+                  //scope.$parent.filter.data = countries; 
+                  //scope.$parent.filter.type = 'country'; 
+                  scope.$emit("updateMap");
+                }           
+              })              
+              .xAxis().ticks(10);              
               
               pathRowChart.render();     
           } 

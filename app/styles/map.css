@@ -1,10 +1,10 @@
 .container-full{
-  margin: 1 auto;
+  margin: 10 auto;
   width: 100%;
 }
 
 #leaflet_map {
-  width: 960px;
+  width: 1070px;
   height: 500px;
 }
 

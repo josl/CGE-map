@@ -12,7 +12,11 @@ angular.module('cgeMapApp')
           if (newVal != oldVal){
             // Pie of countries
             var pieChart = dc.pieChart(element[0]);
-            var color_scale =  d3.scale.category20c();
+            var color_scale =  d3.scale.category20b();
+            var countries = d3.nest()
+                .key(function(d) { return d.key; })
+                .map(scope.data[1].all(), d3.map).keys();
+
 
             pieChart
               .width(170)
@@ -25,6 +29,9 @@ angular.module('cgeMapApp')
                   return d.data.key;
               })
               .renderLabel(true)
+              .colors(d3.scale.category20c())
+              .colorDomain(countries)
+              .colorAccessor(function(d, i){return i;})
               .on("filtered", function(chart, filter){
                 // Filter the points in the map with the filter 
                 if(chart.filters()) {
