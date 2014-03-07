@@ -1,0 +1,64 @@
+
+<div clustered-map lat="55.4" long="12.34" id="leaflet_map"></div>
+
+<div class="row" id="buttons_container">
+  
+  <!-- Filter Pickers -->
+  <div class="col-lg-3 col-lg-offset-1">
+    <div class="row">
+      <!-- Source picker -->
+      <div attribute-picker class="col-lg-4" id="source-pick"  data="sources" name="Source"></div>
+      <!-- Genus picker -->
+      <div attribute-picker class="col-lg-4" id="genus-pick" data="genus" name="Genus"></div>
+      <!-- Species picker -->
+      <div attribute-picker class="col-lg-4" id="specie-pick" data="species" name="Species"></div>
+    </div>
+  </div>
+
+  <!-- Group by button -->
+  <div id ="grouping_buton" class="col-lg-3 col-lg-offset-1" class="btn-group">
+    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+      Group by: <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li><a ng-click="groupingBy('id')">by ID</a></li>
+      <li><a ng-click="groupingBy('city')">by City</a></li>
+      <li><a ng-click="groupingBy('country')">by Country</a></li>
+    </ul>
+  </div>   
+
+  <!-- Show/Hide clusters -->
+  <div class="col-lg-3 col-lg-offset-1">  
+    <span class="input-group-addon">
+      <input type="radio" name="optionsRadios" ng-click="map_layer('clusters')" checked> Clusters
+    </span>    
+    <span class="input-group-addon">
+      <input type="radio" name="optionsRadios" ng-click="map_layer('circles')"> Outbreaks
+    </span>                                               
+  </div>
+                 
+</div> <!-- /buttons_container -->
+
+<div class="row">
+   <!-- Country Pie --> 
+   <div class="col-lg-2 col-lg-offset-10" id="country-pie">
+<!--     <div class="row"> -->
+        <div attribute-picker id="country-pick" data="countries" name="Countries"></div>
+        <pie-chart id="countries-pie" data="countries"></pie-chart>
+<!--     </div> -->
+    </div>
+</div><!-- /row -->
+
+<div class="row">    
+    <!-- Pathogenic distribution -->
+    <div class="col-lg-2 col-lg-offset-10" id="path-dist">
+      <row-chart id="path-chart" name="Pathogenic" data="pathogenic"></row-chart>
+    </div>
+</div><!-- /row --> 
+
+<!-- Time Line -->
+<time-line class="row" id="time-line-chart" data="timeline" name="Time Line"></time-line>
+<!-- /Time Line -->
+
+
+<!-- <div class="row">111</div> -->

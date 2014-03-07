@@ -1,4 +1,8 @@
 
+<!-- <div class="row"> -->
+  <div clustered-map lat="55.4" long="12.34" id="leaflet_map"></div>
+<!-- </div> -->
+
 <div class="row" id="buttons_container">
 
   <!-- Show/Hide clusters -->
@@ -15,7 +19,7 @@
   <!-- Group by button -->
   <div id ="grouping_buton" class="col-md-2 col-md-offset-1" class="btn-group">
     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-      Group isolates by: <span class="caret"></span>
+      Group by: <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
       <li><a ng-click="groupingBy('id')">by ID</a></li>
@@ -38,12 +42,14 @@
 
 <div class="row" id="map_container"> 
       <!-- Map -->
+<!--
       <div class="col-md-10 col-lg-10">
         <div clustered-map lat="55.4" long="12.34" id="leaflet_map"></div>
       </div>
+-->
       
       <!-- Side Visualizations -->
-      <div class="col-md-2">
+      <div class="col-md-2 col-md-offset-10">
           <div class="row">
           
              <!-- Country Pie --> 
@@ -64,7 +70,7 @@
 </div><!-- /map_container -->     
 
 <!-- Time Line -->
-<div class="row">
+<div class="row" id="timeLine">
   <time-line class="col-md-12 col-lg-12" id="time-line-chart" data="timeline" name="Time Line"></time-line>
 </div>                   
 <!-- /Time Line -->

@@ -1,12 +1,12 @@
 <!-- Template for selectable picker -->
 
 <div chart-id="{{chart-id}}" id="{{id}}"> 
-  <strong >{{name}} </strong>
-  <a ng-if="selected != '...'" class="reset" ng-click="resetDimension()" style="display: inline;">
+<!--   <strong >{{name}} </strong> -->
+  <a ng-if="selected != name" class="reset" ng-click="resetDimension()" style="display: inline;">
       reset
   </a>  
   <div class="btn-group">
-    <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
         {{selected}}<span class="caret"></span>
     </button>            
     <ul class="dropdown-menu">
@@ -17,6 +17,5 @@
       </li>
     </ul>
   </div>
-
   <div class="clearfix"></div>
 </div>

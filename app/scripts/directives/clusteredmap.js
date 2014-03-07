@@ -21,15 +21,21 @@ angular.module('cgeMapApp')
           
         // Create Map
         var url = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+        //var url = 'http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg';
         console.log(element[0]);
         scope.map = new L.Map(element[0],{
                         center: [parseFloat(attrs.lat), parseFloat(attrs.long)], 
                         zoom: 3
                       }).addLayer(new L.TileLayer(url));
-                      
+        // Width of the map = maximun widht of container
+        console.log($(".container").width());
+        $(element[0]).width($(".container").width());                      
+        scope.map.attributionControl.setPrefix(''); // Don't show the 'Powered by Leaflet' text.  
+        scope.map.options.minZoom = 2; 
+        console.log(scope.map.getMinZoom());           
         scope.padding = 10; // Extra padding for circle radius
         scope.geoJSON = {"type":"FeatureCollection","features":[]}; 
-                 
+                         
           //////// Scope functions
           
         // Use Leaflet to implement a D3 geometric transformation.
@@ -70,7 +76,6 @@ angular.module('cgeMapApp')
         scope.map.on("viewreset", scope.reset);
 
         scope.create_circles = function (data, criteria) {
-          console.log(data);
           // Feature in scope so we don't select every time
           scope.feature = scope.g.selectAll(".circle_path")
                           .data(data, function(d){
@@ -103,11 +108,12 @@ angular.module('cgeMapApp')
                               .pointRadius(function(d){
                                   return scope.radius(d.properties.data.Size);
                               });
-
+        // Radius for the outbreaks
         scope.radius = d3.scale.linear()
                       .domain([1, 1]) // updated later, when we know the isolates
                       .range([10, 50]);   
-
+        
+        // Process the data acording to criteria
         scope.process_data = function (data, criteria) {
           var grouped_data, max, min;
           if (criteria == 'id'){
@@ -198,9 +204,11 @@ angular.module('cgeMapApp')
             scope.map.addLayer(scope.markers);
             // Center the map
 
-            /*if (scope.filter.type == "country"){
+/*
+            if (scope.filter.type == "country"){
               scope.map.setView(coordinates,3); 
-            }*/
+            }
+*/
 
             scope.process_data(data, scope.isolate_group); 
             scope.create_circles(scope.geoJSON.features, scope.isolate_group);            

@@ -15,8 +15,8 @@ angular.module('cgeMapApp')
             // Pathogenic bar chart distribution
             pathRowChart
               .height(130)
-              .width(200)
-              .margins({top: 10, right: 50, bottom: 30, left: 20})
+              .width(180)
+              .margins({top: 10, right: 10, bottom: 20, left: 10})
               .group(scope.data[1])
               .dimension(scope.data[0])   
               .colors(["#6BF536","#EF6922","#0E64F5"])     

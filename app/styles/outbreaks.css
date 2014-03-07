@@ -1,0 +1,17 @@
+/* SVG CIRCLES */
+
+#svg_features {
+  position: relative;
+}
+
+.circle_path {
+  fill: brown;
+  fill-opacity: .2;
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.circle_path:hover {
+  fill: brown;
+  fill-opacity: .7;
+}

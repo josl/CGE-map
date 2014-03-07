@@ -13,7 +13,7 @@ angular.module('cgeMapApp')
           if (newVal != oldVal){
             scope.elements = newVal[1].all();
             scope.dimension = newVal[0];
-            scope.selected = "...";
+            scope.selected = scope.name;
             // Listener to event: "click on list element"
             scope.filterDimension = function(data){
               // Filter selected dimension
@@ -34,7 +34,7 @@ angular.module('cgeMapApp')
               scope.$parent.filter.type = scope.id.split("-")[0];
               
               scope.$emit("updateMap"); 
-              scope.selected = "...";             
+              scope.selected = scope.name;             
             }
           } 
         });

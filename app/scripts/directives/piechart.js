@@ -22,7 +22,7 @@ angular.module('cgeMapApp')
               .width(170)
               .height(170)
               .radius(80)
-              .innerRadius(10)
+              .innerRadius(20)
               .dimension(scope.data[0])
               .group(scope.data[1])
               .label(function (d) {
