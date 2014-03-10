@@ -1,13 +1,5 @@
-/*
-#visualizations {
-  min-height: 620px;
-  position: fixed; 
-  min-width: : 1130px;
-}
-*/
-
 /* Visualizations  */
-#time-line-day, #time-line-month, #time-line-all, #path-dist, #country-pie{
+.visualization-box{
   padding: 6px 8px; 
   background: white; 
   background: rgba(255,255,255,0.8); 
