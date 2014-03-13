@@ -1,4 +1,8 @@
 /* Visualizations  */
+.visualizations{
+  max-width: 1140px;
+}
+
 .visualization-box{
   padding: 6px 8px; 
   background: white; 
