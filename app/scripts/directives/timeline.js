@@ -56,7 +56,7 @@ angular.module('cgeMapApp')
                 .dimension(newVal[4])
                 .group(newVal[5])
                 //  .centerBar(true)
-                .gap(14)
+                .gap(10)
                 .x(d3.scale.linear().domain([0, 7]))
                 .on("filtered", function(chart, filter){
                     // Filter the points in the map with the filter 
@@ -78,7 +78,7 @@ angular.module('cgeMapApp')
                 .dimension(newVal[6])
                 .group(newVal[7])
                 //.centerBar(true)
-                .gap(4)
+                .gap(10)
                 .x(d3.scale.linear().domain([0, 12]))
                 .on("filtered", function(chart, filter){
                     // Filter the points in the map with the filter 
