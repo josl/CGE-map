@@ -25,7 +25,7 @@ angular.module('cgeMapApp')
             var timeLineMonth = dc.barChart("#time-line-month"); 
                         
             // TIMELINE (General)
-            timeLine.width(715)
+            timeLine.width(693)
                 .height(50)
                 .margins({top: 0, right: 10, bottom: 20, left: 10})
                 .dimension(newVal[2])
