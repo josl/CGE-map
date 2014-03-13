@@ -19,13 +19,17 @@ angular.module('cgeMapApp')
             //  byDays, byDaysGroup,
             //  byMonths, byMonthsGroup
             // ]; 
-            
+
+            var days_names = d3.map({0:"mo", 1:"tu", 2:"we", 3:"thu",4:"fri", 5:"sat", 6:"sun"});
+            var month_names = d3.map({0:"ja", 1:"fe", 2:"mar", 3:"ap",4:"ma", 5:"jun", 6:"jul"
+                                    , 7:"au", 8:"se", 9:"oc", 10:"no", 11:"de"});
+
             var timeLine = dc.barChart("#time-line-all");
             var timeLineDay = dc.barChart("#time-line-day");
             var timeLineMonth = dc.barChart("#time-line-month"); 
                         
             // TIMELINE (General)
-            timeLine.width(693)
+            timeLine.width(603)
                 .height(50)
                 .margins({top: 0, right: 10, bottom: 20, left: 10})
                 .dimension(newVal[2])
@@ -46,17 +50,14 @@ angular.module('cgeMapApp')
                 });
         
             //  ------> TIMELINE DAY
-            timeLineDay.width(150)
+            timeLineDay.width(140)
                 .height(50)
                 .margins({top: 0, right: 10, bottom: 20, left: 10})
                 .dimension(newVal[4])
                 .group(newVal[5])
-                //.centerBar(true)
+                //  .centerBar(true)
                 .gap(14)
-                //.x(d3.scale.ordinal().domain(["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]))
                 .x(d3.scale.linear().domain([0, 7]))
-                //.round(d3.time.day.round)
-                //.xUnits(d3.time.days)
                 .on("filtered", function(chart, filter){
                     // Filter the points in the map with the filter 
                     if(chart.filter()) {
@@ -65,10 +66,13 @@ angular.module('cgeMapApp')
                         scope.$parent.filter.type = 'date_day';
                     }    
                     scope.$emit("updateMap");       
-                });
+                })
+                .xAxis().tickFormat(function(d, i){
+                  return days_names.get(i);
+                })                ;
         
             //  ------> TIMELINE Month
-            timeLineMonth.width(150)
+            timeLineMonth.width(230)
                 .height(50)
                 .margins({top: 0, right: 10, bottom: 20, left: 10})
                 .dimension(newVal[6])
@@ -76,8 +80,6 @@ angular.module('cgeMapApp')
                 //.centerBar(true)
                 .gap(4)
                 .x(d3.scale.linear().domain([0, 12]))
-                //.round(d3.time.month.round)
-                //.xUnits(d3.time.months)
                 .on("filtered", function(chart, filter){
                     // Filter the points in the map with the filter 
                     if(chart.filter()) {
@@ -86,7 +88,11 @@ angular.module('cgeMapApp')
                         scope.$parent.filter.type = 'date_month';  
                     }
                     scope.$emit("updateMap");   
-                });            
+                })
+                .xAxis().tickFormat(function(d, i){
+                  return month_names.get(i);
+                });
+                                                         
             timeLine.render();
             timeLineDay.render();
             timeLineMonth.render();   
