@@ -55,9 +55,11 @@ angular.module('cgeMapApp')
                         "data":{
                           "Size": d.length,
                           "City": d[0].properties.data.City,
-                          "City_coor": cities[d[0].properties.data.City],
+                          //"City_coor": cities[d[0].properties.data.City],
+                          "City_coor": d[0].properties.data.City_coor,
                           "Country": d[0].properties.data.Country,
-                          "Country_coor": countries[d[0].properties.data.Country],
+                          //"Country_coor": countries[d[0].properties.data.Country],
+                          "Country_coor": d[0].properties.data.Country_coor,
                         }
                       },"geometry":{
                           "type":"Point",

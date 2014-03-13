@@ -10,8 +10,8 @@ angular.module('cgeMapApp', [
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        templateUrl: 'views/clusteredmap_3.html',
+        controller: 'ClusteredmapCtrl'
       })
       .when('/clusteredMap', {
         templateUrl: 'views/clusteredmap_3.html',
